@@ -16,6 +16,12 @@ Target "Generate" (fun _ ->
   GitBook id id Html
 )
 
+Target "GenerateAll" (fun _ ->
+  GitBook id id Html
+  GitBook id id (Pdf "book.pdf")
+  GitBook id id (EPub "book.epub")
+)
+
 let release () =
   let tempDocsDir = "temp/gh-pages"
   CleanDir tempDocsDir

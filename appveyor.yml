@@ -17,9 +17,10 @@ install:
   - ps: Install-Product node ''
   - npm install
   - choco install calibre
+  - cmd: set PATH=%PATH%;C:\Program Files\Calibre2\
 
 build_script:
-  - cmd: build.cmd
+  - cmd: build.cmd GenerateAll
 
 environment:
   access_token:
@@ -32,4 +33,8 @@ on_success:
   - git config --global user.email "pocketberserker@gmail.com"
   - git config --global push.default simple
   - cmd: ./build.cmd ReleaseFromAppVeyor
+
+artifacts:
+  - path: gitbook\book.pdf
+  - path: gitbook\book.epub
 
