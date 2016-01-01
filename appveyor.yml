@@ -9,6 +9,10 @@ skip_commits:
 
 clone_depth: 50
 
+cache:
+  - packages
+  - node_modules
+
 install:
   - ps: Install-Product node ''
   - npm install
