@@ -26,13 +26,5 @@ on_success:
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.name "pocketberserker"
   - git config --global user.email "pocketberserker@gmail.com"
-  - ps: mv gitbook/_book ../
-  - git fetch origin gh-pages:gh-pages
-  - git clean -fdx
-  - git checkout gh-pages
-  - ps: rm -Recurse -Force ./*
-  - ps: cp -Recurse ../_book/* ./
-  - git add .
-  - ps: git commit -am "auto commit on AppVeyor $env:APPVEYOR_BUILD_NUMBER"
-  - ps: if(($env:APPVEYOR_REPO_BRANCH -eq "master") -And (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) { git push git@github.com:pocketberserker/FAKE.GitBook.Sample.git gh-pages:gh-pages  }
+  - ps: if(($env:APPVEYOR_REPO_BRANCH -eq "master") -And (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) { ./build.cmd Release  }
 
