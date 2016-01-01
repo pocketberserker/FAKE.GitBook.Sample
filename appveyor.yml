@@ -1,0 +1,47 @@
+branches:
+  except:
+    - gh-pages
+
+skip_tags: true
+
+skip_commits:
+  message: \[(ci skip|skip ci)\].*
+
+clone_depth: 50
+
+configuration:
+  - Release
+
+cache:
+  - packages -> paket.lock
+  - node_modules
+  - paket-files -> paket.lock
+#  - %APPDATA%\npm-cache
+
+install:
+  - ps: Install-Product node ''
+  - npm install
+  - choco install calibre
+
+build_script:
+  - cmd: build.cmd
+
+environment:
+  access_token:
+    secure: /RXusYkOTtsXn3OKWHg65Tbj8rasEzKbyMS+qGqCjqdk+Hcsu1CKYcUJ0hvd1Shd
+
+on_success:
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git config --global user.name "pocketberserker"
+  - git config --global user.email "pocketberserker@gmail.com"
+  - ps: mv gitbook/_book ../
+  - git fetch origin gh-pages:gh-pages
+  - git clean -fdx
+  - git checkout gh-pages
+  - ps: rm -rf ./*
+  - ps: cp -r ../_book/* ./
+  - git add .
+  - ps: git commit -am "auto commit on AppVeyor $env:APPVEYOR_BUILD_NUMBER"
+  - ps: if(($env:APPVEYOR_REPO_BRANCH -eq "master") -And (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) { git push git@github.com:pocketberserker/FAKE.GitBook.Sample.git gh-pages:gh-pages  }
+

@@ -1,0 +1,7 @@
+source https://api.nuget.org/v3/index.json
+source https://nuget.org/api/v2
+
+nuget FAKE
+nuget FAKE.GitBook
+nuget Npm.js
+
