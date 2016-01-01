@@ -9,15 +9,6 @@ skip_commits:
 
 clone_depth: 50
 
-configuration:
-  - Release
-
-cache:
-  - packages -> paket.lock
-  - node_modules
-  - paket-files -> paket.lock
-#  - %APPDATA%\npm-cache
-
 install:
   - ps: Install-Product node ''
   - npm install
