@@ -16,14 +16,14 @@ Target "Generate" (fun _ ->
 )
 
 Target "Release" (fun _ ->
-    let tempDocsDir = "temp/gh-pages"
-    CleanDir tempDocsDir
-    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+  let tempDocsDir = "temp/gh-pages"
+  CleanDir tempDocsDir
+  Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
 
-    CopyRecursive "gitbook/_book" tempDocsDir true |> tracefn "%A"
-    StageAll tempDocsDir
-    Git.Commit.Commit tempDocsDir (sprintf "auto commit on AppVeyor %s" (environVar "APPVEYOR_BUILD_NUMBER"))
-    Branches.push tempDocsDir
+  CopyRecursive "gitbook/_book" tempDocsDir true |> tracefn "%A"
+  StageAll tempDocsDir
+  Git.Commit.Commit tempDocsDir (sprintf "auto commit on AppVeyor %s" (environVar "APPVEYOR_BUILD_NUMBER"))
+  Branches.push tempDocsDir
 )
 
 RunTargetOrDefault "Generate"
