@@ -30,8 +30,8 @@ on_success:
   - git fetch origin gh-pages:gh-pages
   - git clean -fdx
   - git checkout gh-pages
-  - ps: rm -rf ./*
-  - ps: cp -r ../_book/* ./
+  - ps: rm -Recurse -Force ./*
+  - ps: cp -Recurse ../_book/* ./
   - git add .
   - ps: git commit -am "auto commit on AppVeyor $env:APPVEYOR_BUILD_NUMBER"
   - ps: if(($env:APPVEYOR_REPO_BRANCH -eq "master") -And (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) { git push git@github.com:pocketberserker/FAKE.GitBook.Sample.git gh-pages:gh-pages  }
