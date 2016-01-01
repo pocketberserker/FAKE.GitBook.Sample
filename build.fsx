@@ -5,6 +5,7 @@
 #I "packages/FSharpVSPowerTools.Core/lib/net45"
 #r @"packages/FAKE.GitBook/lib/net451/Fake.GitBook.dll"
 open Fake
+open Fake.Git
 
 let gitOwner = "pocketberserker"
 let gitHome = "https://github.com/" + gitOwner
