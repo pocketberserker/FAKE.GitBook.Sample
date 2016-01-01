@@ -13,7 +13,7 @@ let gitHome = "https://github.com/" + gitOwner
 let gitName = "FAKE.GitBook.Sample"
 
 Target "Generate" (fun _ ->
-  GitBook id (fun p -> { p with SrcDir = currentDirectory @@ "src" }) Html
+  GitBook id id Html
 )
 
 let release () =
