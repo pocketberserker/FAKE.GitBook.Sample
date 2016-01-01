@@ -26,5 +26,6 @@ on_success:
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.name "pocketberserker"
   - git config --global user.email "pocketberserker@gmail.com"
+  - git config --global push.default simple
   - ps: if(($env:APPVEYOR_REPO_BRANCH -eq "master") -And (-Not $env:APPVEYOR_PULL_REQUEST_NUMBER)) { ./build.cmd Release  }
 
