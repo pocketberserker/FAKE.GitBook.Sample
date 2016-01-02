@@ -13,13 +13,11 @@ let gitHome = "https://github.com/" + gitOwner
 let gitName = "FAKE.GitBook.Sample"
 
 Target "Generate" (fun _ ->
-  GitBook id id Html
+  GitBook id id [Html]
 )
 
 Target "GenerateAll" (fun _ ->
-  GitBook id id Html
-  GitBook id id (Pdf "book.pdf")
-  GitBook id id (EPub "book.epub")
+  GitBook id id [ Html; Pdf "book"; EPub "book" ]
 )
 
 let release () =
