@@ -1,12 +1,12 @@
 NUGET
   remote: http://api.nuget.org/v3/index.json
   specs:
-    FAKE (4.12.0)
-    FAKE.GitBook (0.0.2)
+    FAKE (4.12.2)
+    FAKE.GitBook (0.1.0)
       FAKE.Lib (>= 4.12.0)
       FSharp.Core (>= 4.0.0.1)
       FSharp.Formatting (>= 2.13.0 < 2.14.0)
-    FAKE.Lib (4.12.0)
+    FAKE.Lib (4.12.2)
     FSharp.Compiler.Service (1.4.2.3)
     FSharp.Core (4.0.0.1)
     FSharp.Formatting (2.13.0)
