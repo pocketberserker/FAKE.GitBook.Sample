@@ -19,22 +19,24 @@ Target "GenerateAll" (fun _ ->
   GitBook id id [ Html; Pdf "book"; EPub "book" ]
 )
 
-let release () =
+let release message () =
   let tempDocsDir = "temp/gh-pages"
   CleanDir tempDocsDir
   Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
 
   CopyRecursive "gitbook/_book" tempDocsDir true |> tracefn "%A"
   StageAll tempDocsDir
-  Git.Commit.Commit tempDocsDir (sprintf "auto commit on AppVeyor %s" (environVar "APPVEYOR_BUILD_NUMBER"))
+  Git.Commit.Commit tempDocsDir message
   Branches.push tempDocsDir
 
-Target "Release" release
+Target "Release" (release "update docs")
 
 Target "ReleaseFromAppveyor" (fun _ ->
   let branch = environVar "APPVEYOR_REPO_BRANCH"
   let pr = environVar "APPVEYOR_PULL_REQUEST_NUMBER"
-  if branch = "master" && String.IsNullOrEmpty(pr) then release ()
+  if branch = "master" && String.IsNullOrEmpty(pr) then
+    let message = sprintf "auto commit on AppVeyor %s" (environVar "APPVEYOR_BUILD_NUMBER")
+    release message ()
 )
 
 RunTargetOrDefault "Generate"
